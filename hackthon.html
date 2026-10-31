@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SchemeSathi | Government Scheme Navigator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f7fb;color:#17233b}
+header{background:#102b50;color:white;padding:22px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:25px;font-weight:bold}
+.logo span{color:#57d6b0}
+nav a{color:white;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{padding:55px 7%;background:linear-gradient(120deg,#12345c,#176b79);color:white}
+.hero h1{font-size:38px;max-width:650px;margin-bottom:14px}
+.hero p{line-height:1.7;max-width:650px;color:#e0f5f3}
+.tag{display:inline-block;background:#ffffff20;padding:8px 13px;border-radius:20px;margin-bottom:18px}
+.container{max-width:1150px;margin:30px auto;padding:0 18px}
+.section-title{font-size:25px;margin-bottom:8px}
+.sub{color:#68758a;margin-bottom:22px;line-height:1.5}
+.card{background:white;padding:23px;border-radius:15px;box-shadow:0 5px 22px #17233b0c;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+label{display:block;font-weight:bold;font-size:14px;margin-bottom:7px}
+input,select{width:100%;padding:12px;border:1px solid #d8e0eb;border-radius:8px;margin-bottom:15px;background:white}
+button{border:0;background:#087e78;color:white;padding:12px 19px;border-radius:8px;cursor:pointer;font-weight:bold}
+button:hover{background:#075e5a}
+.secondary{background:#e8f5f3;color:#087e78}
+.result{border:1px solid #e2eaf1;padding:17px;border-radius:12px;margin-top:13px}
+.result h3{color:#12345c;margin-bottom:8px}
+.result p{line-height:1.6;color:#59677a;font-size:14px;margin:6px 0}
+.pill{display:inline-block;background:#e8f5f3;color:#087e78;padding:5px 9px;border-radius:20px;font-size:12px;margin:5px 4px 5px 0}
+.small{font-size:12px;color:#778397}
+.check{display:flex;gap:10px;align-items:center;margin:12px 0}
+.check input{width:auto;margin:0}
+.check label{margin:0;font-weight:normal}
+.progress{height:9px;background:#e7edf3;border-radius:10px;overflow:hidden;margin:12px 0}
+.bar{height:100%;background:#0a9b81;width:0%}
+.chatbox{height:260px;overflow:auto;background:#f6f9fc;padding:14px;border-radius:10px;margin-bottom:12px}
+.msg{padding:10px 13px;border-radius:10px;margin:8px 0;max-width:90%;line-height:1.5;font-size:14px}
+.bot{background:#e4f3f1}
+.user{background:#dce9ff;margin-left:auto}
+.chatrow{display:flex;gap:8px}
+.chatrow input{margin:0}
+footer{text-align:center;background:#102b50;color:white;padding:25px;margin-top:40px;line-height:1.8}
+.hidden{display:none}
+@media(max-width:600px){.hero h1{font-size:29px}nav a{margin-left:8px;font-size:12px}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">Scheme<span>Sathi.</span></div>
+ <nav>
+  <a href="#finder">Find Schemes</a>
+  <a href="#compare">Compare</a>
+  <a href="#assistant">Assistant</a>
+ </nav>
+</header>
+
+<section class="hero">
+ <div class="tag">AI & Citizen Services Project</div>
+ <h1>From Confusion to Benefits.</h1>
+ <p>Discover government schemes, understand their benefits, prepare your documents and find official application information — all in one place.</p>
+ <br>
+ <a href="#finder"><button>Find My Schemes →</button></a>
+</section>
+
+<main class="container">
+
+<section id="finder" class="card">
+ <h2 class="section-title">01. Smart Scheme Finder</h2>
+ <p class="sub">Enter basic details to explore schemes that may be relevant to your profile.</p>
+ <div class="grid">
+  <div><label>Age</label><input id="age" type="number" min="1" max="120" placeholder="Enter your age"></div>
+  <div><label>Annual Family Income (₹)</label><input id="income" type="number" placeholder="Example: 150000"></div>
+  <div><label>Occupation</label>
+   <select id="occupation">
+    <option value="">Select occupation</option>
+    <option>Student</option><option>Farmer</option><option>Business</option>
+    <option>Worker</option><option>Woman</option><option>Unemployed</option>
+    <option>Other</option>
+   </select>
+  </div>
+  <div><label>Category</label>
+   <select id="category">
+    <option value="">Select category</option>
+    <option>General</option><option>SC</option><option>ST</option><option>OBC</option><option>Other</option>
+   </select>
+  </div>
+  <div><label>State</label>
+   <select id="state">
+    <option>Punjab</option><option>Haryana</option><option>Delhi</option>
+    <option>Uttar Pradesh</option><option>Rajasthan</option><option>Other</option>
+   </select>
+  </div>
+  <div><label>District</label><input id="district" placeholder="Enter your district"></div>
+ </div>
+ <button onclick="findSchemes()">Find Relevant Schemes</button>
+ <div id="results" style="margin-top:20px"></div>
+ <p class="small">Note: Suggestions are preliminary, not official eligibility decisions. Always check the scheme rules on its official portal.</p>
+</section>
+
+<section class="card">
+ <h2 class="section-title">02. Why This Scheme?</h2>
+ <p class="sub">We explain why a scheme appears in your suggestions, instead of showing only its name.</p>
+ <div id="why"><p class="small">First use the Smart Scheme Finder to see matching reasons.</p></div>
+</section>
+
+<section class="card">
+ <h2 class="section-title">03. Document Readiness Checker</h2>
+ <p class="sub">Select a scheme and tick documents as you prepare them.</p>
+ <select id="docScheme" onchange="showDocs()"></select>
+ <div id="docs"></div>
+ <div class="progress"><div class="bar" id="progressBar"></div></div>
+ <p id="progressText" class="small">0% documents prepared</p>
+</section>
+
+<section id="compare" class="card">
+ <h2 class="section-title">04. Scheme Comparison</h2>
+ <p class="sub">Compare two schemes to understand their benefits and requirements.</p>
+ <div class="grid">
+  <div><label>First Scheme</label><select id="schemeA"></select></div>
+  <div><label>Second Scheme</label><select id="schemeB"></select></div>
+ </div>
+ <button onclick="compareSchemes()">Compare Schemes</button>
+ <div id="comparison"></div>
+</section>
+
+<section class="card">
+ <h2 class="section-title">05. Explore All Schemes</h2>
+ <p class="sub">Search the scheme directory by name or keyword.</p>
+ <input id="search" placeholder="Search schemes..." oninput="showDirectory()">
+ <div id="directory"></div>
+</section>
+
+<section id="assistant" class="card">
+ <h2 class="section-title">06. Easy Language Assistant</h2>
+ <p class="sub">Ask simple questions about schemes in English, Hindi or Punjabi.</p>
+ <div class="chatbox" id="chat">
+  <div class="msg bot">Hello! I am SchemeSathi Assistant. Ask me about a scheme, benefits or required documents.</div>
+ </div>
+ <div class="chatrow">
+  <input id="question" placeholder="Ask your question..." onkeydown="if(event.key==='Enter')askBot()">
+  <button onclick="askBot()">Send</button>
+ </div>
+ <p class="small" style="margin-top:10px">Prototype assistant: answers are based on the sample scheme information displayed here.</p>
+</section>
+
+</main>
+
+<footer>
+ <h2>SchemeSathi</h2>
+ From Confusion to Benefits.<br>
+ Making government scheme information easier to understand.<br>
+ <span class="small">Hackathon prototype | No personal details are stored by this page.</span>
+</footer>
+
+<script>
+const schemes=[
+{id:1,name:"PM Kisan Samman Nidhi",group:"Farmer",benefit:"Eligible farmer families receive financial assistance of ₹6,000 per year, subject to scheme rules.",docs:["Aadhaar Card","Bank Account Details","Land Records"],url:"https://pmkisan.gov.in/"},
+{id:2,name:"Ayushman Bharat PM-JAY",group:"Health",benefit:"Eligible families can receive health coverage up to ₹5 lakh per family per year under scheme conditions.",docs:["Aadhaar Card","Eligibility Proof","Identity Proof"],url:"https://pmjay.gov.in/"},
+{id:3,name:"PM Ujjwala Yojana",group:"Woman",benefit:"Eligible women from poor households can receive LPG connection support under scheme rules.",docs:["Aadhaar Card","Address Proof","Bank Details","Ration Card"],url:"https://www.pmuy.gov.in/"},
+{id:4,name:"PM Awas Yojana",group:"Housing",benefit:"Housing assistance for eligible households under applicable rural or urban guidelines.",docs:["Aadhaar Card","Income Proof","Address Proof","Bank Details"],url:"https://pmaymis.gov.in/"},
+{id:5,name:"National Scholarship Portal",group:"Student",benefit:"Provides access to eligible central and other scholarships for students.",docs:["Aadhaar Card","Marksheets","Income Certificate","Bank Details"],url:"https://scholarships.gov.in/"},
+{id:6,name:"Sukanya Samriddhi Yojana",group:"Girl Child",benefit:"A government-backed savings scheme for the future of an eligible girl child.",docs:["Girl Child Birth Certificate","Parent Identity Proof","Address Proof"],url:"https://www.indiapost.gov.in/"},
+{id:7,name:"PM Mudra Yojana",group:"Business",benefit:"Loans through eligible lending institutions for non-corporate small businesses.",docs:["Identity Proof","Address Proof","Business Details","Bank Details"],url:"https://www.mudra.org.in/"},
+{id:8,name:"Atal Pension Yojana",group:"Worker",benefit:"Pension scheme for eligible subscribers, subject to age and other conditions.",docs:["Aadhaar Card","Bank Account","Mobile Number"],url:"https://www.npscra.nsdl.co.in/"},
+{id:9,name:"PM SVANidhi",group:"Worker",benefit:"Working capital loan support for eligible street vendors.",docs:["Identity Proof","Vendor Certificate or Letter","Bank Details"],url:"https://pmsvanidhi.mohua.gov.in/"},
+{id:10,name:"PM Vishwakarma",group:"Worker",benefit:"Support for eligible traditional artisans and craftspeople, including training and other benefits.",docs:["Aadhaar Card","Mobile Number","Bank Details","Occupation Details"],url:"https://pmvishwakarma.gov.in/"},
+{id:11,name:"National Means-cum-Merit Scholarship",group:"Student",benefit:"Scholarship support for eligible students studying in secondary classes.",docs:["Marksheets","Income Certificate","Bank Details"],url:"https://scholarships.gov.in/"},
+{id:12,name:"Post Matric Scholarship",group:"Student",benefit:"Financial support for eligible students from specified categories and income groups.",docs:["Caste Certificate","Income Certificate","Marksheets","Bank Details"],url:"https://scholarships.gov.in/"},
+{id:13,name:"PM Fasal Bima Yojana",group:"Farmer",benefit:"Crop insurance support for eligible farmers against specified crop risks.",docs:["Aadhaar Card","Land Records","Bank Details","Sowing Details"],url:"https://pmfby.gov.in/"},
+{id:14,name:"Kisan Credit Card",group:"Farmer",benefit:"Credit support for eligible farmers for agricultural and allied activities.",docs:["Identity Proof","Land Records","Bank Details"],url:"https://www.myscheme.gov.in/"},
+{id:15,name:"Stand-Up India",group:"Business",benefit:"Bank loans for eligible SC/ST and women entrepreneurs for greenfield enterprises.",docs:["Identity Proof","Business Plan","Category Proof","Bank Details"],url:"https://www.standupmitra.in/"},
+{id:16,name:"PM Kaushal Vikas Yojana",group:"Student",benefit:"Skill training opportunities through approved training programmes.",docs:["Aadhaar Card","Education Details","Identity Proof"],url:"https://www.msde.gov.in/"},
+{id:17,name:"National Social Assistance Programme",group:"Social Support",benefit:"Social assistance pensions for eligible beneficiaries under programme guidelines.",docs:["Aadhaar Card","Age Proof","Income or Eligibility Proof","Bank Details"],url:"https://nsap.nic.in/"},
+{id:18,name:"PM Jan Dhan Yojana",group:"Banking",benefit:"Access to basic banking services for eligible individuals.",docs:["Aadhaar Card or Accepted KYC Documents","Address Proof"],url:"https://pmjdy.gov.in/"},
+{id:19,name:"PM Surya Ghar",group:"Household",benefit:"Rooftop solar support and subsidy for eligible residential households.",docs:["Electricity Consumer Number","Identity Proof","Bank Details"],url:"https://pmsuryaghar.gov.in/"},
+{id:20,name:"National Apprenticeship Promotion Scheme",group:"Student",benefit:"Apprenticeship opportunities and training support under applicable rules.",docs:["Aadhaar Card","Education Certificates","Bank Details"],url:"https://www.apprenticeshipindia.gov.in/"}
+];
+
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function schemeCard(s,reason=""){
+return `<div class="result"><h3>${escapeHTML(s.name)}</h3><p>${escapeHTML(s.benefit)}</p>${reason?`<p><b>Why suggested:</b> ${escapeHTML(reason)}</p>`:""}<a href="${s.url}" target="_blank" rel="noopener">Official information ↗</a></div>`;
+}
+function fillSelects(){
+["docScheme","schemeA","schemeB"].forEach(id=>{
+document.getElementById(id).innerHTML=schemes.map(s=>`<option value="${s.id}">${escapeHTML(s.name)}</option>`).join("");
+});
+}
+function findSchemes(){
+const age=Number(document.getElementById("age").value);
+const occupation=document.getElementById("occupation").value;
+const income=document.getElementById("income").value;
+const category=document.getElementById("category").value;
+const district=document.getElementById("district").value;
+if(!age||!occupation){alert("Please enter your age and select occupation.");return}
+let matches=schemes.filter(s=>{
+if(occupation==="Farmer")return s.group==="Farmer";
+if(occupation==="Student")return s.group==="Student";
+if(occupation==="Business")return s.group==="Business";
+if(occupation==="Worker")return s.group==="Worker";
+if(occupation==="Woman")return s.group==="Woman"||s.group==="Girl Child";
+return true;
+});
+if(matches.length===0)matches=schemes.slice(0,5);
+document.getElementById("results").innerHTML=`<h3>Suggested schemes (${matches.length})</h3>`+matches.map(s=>schemeCard(s,"Your selected occupation is related to this scheme category.")).join("");
+document.getElementById("why").innerHTML=matches.slice(0,5).map(s=>`<div class="result"><b>${escapeHTML(s.name)}</b><p>Matched with your selected occupation: ${escapeHTML(occupation)}.</p><p class="small">Age, income, category and location have not been used to confirm eligibility. Please check the official rules.</p></div>`).join("");
+}
+function showDocs(){
+const s=schemes.find(x=>x.id==document.getElementById("docScheme").value);
+document.getElementById("docs").innerHTML=s.docs.map((d,i)=>`<div class="check"><input type="checkbox" class="doccheck" id="d${i}" onchange="updateProgress()"><label for="d${i}">${escapeHTML(d)}</label></div>`).join("");
+updateProgress();
+}
+function updateProgress(){
+const all=[...document.querySelectorAll(".doccheck")];
+const done=all.filter(x=>x.checked).length;
+const percent=all.length?Math.round(done/all.length*100):0;
+document.getElementById("progressBar").style.width=percent+"%";
+document.getElementById("progressText").textContent=percent+"% documents prepared ("+done+"/"+all.length+")";
+}
+function compareSchemes(){
+const a=schemes.find(s=>s.id==document.getElementById("schemeA").value);
+const b=schemes.find(s=>s.id==document.getElementById("schemeB").value);
+document.getElementById("comparison").innerHTML=`
+<div class="grid" style="margin-top:18px">
+<div class="result"><h3>${escapeHTML(a.name)}</h3><p><b>Benefit:</b> ${escapeHTML(a.benefit)}</p><p><b>Documents:</b> ${a.docs.map(escapeHTML).join(", ")}</p><a href="${a.url}" target="_blank" rel="noopener">Official information ↗</a></div>
+<div class="result"><h3>${escapeHTML(b.name)}</h3><p><b>Benefit:</b> ${escapeHTML(b.benefit)}</p><p><b>Documents:</b> ${b.docs.map(escapeHTML).join(", ")}</p><a href="${b.url}" target="_blank" rel="noopener">Official information ↗</a></div>
+</div>`;
+}
+function showDirectory(){
+const q=document.getElementById("search").value.toLowerCase();
+const list=schemes.filter(s=>(s.name+" "+s.group+" "+s.benefit).toLowerCase().includes(q));
+document.getElementById("directory").innerHTML=list.map(s=>schemeCard(s)).join("")||"<p>No schemes found.</p>";
+}
+function askBot(){
+const input=document.getElementById("question");
+const q=input.value.trim();
+if(!q)return;
+const chat=document.getElementById("chat");
+chat.innerHTML+=`<div class="msg user">${escapeHTML(q)}</div>`;
+const lower=q.toLowerCase();
+let answer="";
+if(lower.includes("hello")||lower.includes("hi")||lower.includes("namaste")||lower.includes("sat sri")){
+answer="Hello! Ask me about a government scheme, its benefits or required documents.";
+}else{
+const found=schemes.filter(s=>(s.name+" "+s.group+" "+s.benefit).toLowerCase().split(/\W+/).some(w=>w.length>3&&lower.includes(w)));
+if(found.length){
+const s=found[0];
+answer=`${s.name}: ${s.benefit} Required documents may include: ${s.docs.join(", ")}. Check official details here: ${s.url}`;
+}else if(lower.includes("document")||lower.includes("paper")){
+answer="Documents depend on the scheme. Select a scheme in the Document Readiness Checker to view its sample checklist.";
+}else if(lower.includes("hindi")||lower.includes("hindi mein")){
+answer="Kripya scheme ka naam batayein. Main is prototype mein available scheme information ke aadhar par jawab de sakta hoon.";
+}else if(lower.includes("punjabi")||lower.includes("ਪੰਜਾਬੀ")){
+answer="Kirpa karke scheme da naam daso. Main is prototype vich maujood jaankari de aadhar te jawab de sakda haan.";
+}else{
+answer="I could not find a matching scheme in my sample directory. Try a scheme name such as PM Kisan, scholarship, Mudra or Ujjwala. For correct eligibility, always check the official portal.";
+}
+}
+chat.innerHTML+=`<div class="msg bot">${escapeHTML(answer).replace(/(https:\/\/[^\s]+)/g,'<a href="$1" target="_blank" rel="noopener">Official portal</a>')}</div>`;
+chat.scrollTop=chat.scrollHeight;
+input.value="";
+}
+fillSelects();
+showDocs();
+showDirectory();
+</script>
+</body>
+</html>
